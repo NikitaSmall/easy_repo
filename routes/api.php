@@ -13,5 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/v1/storage/{key}', 'StorageController@get');
-Route::post('/v1/storage/{key}', 'StorageController@set');
+Route::get('/v1/storage', 'StorageController@get');
+Route::post('/v1/storage', 'StorageController@set');
