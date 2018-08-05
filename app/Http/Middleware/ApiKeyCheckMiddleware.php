@@ -19,7 +19,7 @@ class ApiKeyCheckMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $limit = 3;
+        $limit = 1000;
         $key = $request->apiKey;
 
         if ($user = ApiKey::check($key)) {

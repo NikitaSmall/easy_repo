@@ -15,7 +15,7 @@ class StorageController extends Controller
 
     public function get(Request $request)
     {
-      $value = Storage::where('key', $request->key)->where('user_id', Auth::id())->first();
+      $value = Storage::getValue($request->key, Auth::id());
       if ($value == null) {
         // return response()->json(['message' => 'the value with given key is not found'], 404);
         return response()->json([$request->key => ''], 404);
@@ -26,10 +26,8 @@ class StorageController extends Controller
 
     public function set(Request $request)
     {
-      $value = Storage::updateOrCreate(
-        ['key' => $request->input('key'), 'user_id' => Auth::id()],
-        ['value' => $request->input('value')]
-      );
+      $value = Storage::setValue($request->input('key'),
+        Auth::id(), $request->input('value'));
 
       return response()->json([$value->key => $value->value]);
     }
