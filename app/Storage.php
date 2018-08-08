@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Queue\Queue;
 
 class Storage extends Model
 {
@@ -22,8 +23,10 @@ class Storage extends Model
 
     public static function setValue($key, $userId, $value)
     {
-      return self::updateOrCreate(
-        ['key' => $key, 'user_id' => $userId], ['value' => $value]
-      );
+      $q = new Queue('setQueue');
+      $q->broadcast(['key' => $key, 'user_id' => $userId, 'value' => $value]);
+      // return self::updateOrCreate(
+      //   ['key' => $key, 'user_id' => $userId], ['value' => $value]
+      // );
     }
 }

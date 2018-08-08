@@ -26,9 +26,9 @@ class StorageController extends Controller
 
     public function set(Request $request)
     {
-      $value = Storage::setValue($request->input('key'),
+      Storage::setValue($request->input('key'),
         Auth::id(), $request->input('value'));
 
-      return response()->json([$value->key => $value->value]);
+      return response()->json(['status' => 'ok']);
     }
 }
